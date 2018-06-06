@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "linkstate": "^1.0.1",
-    "preact": "^8.1.0",
+    "preact": "^8.2.9",
     "preact-router": "^2.0.0"
   },
   "devDependencies": {
