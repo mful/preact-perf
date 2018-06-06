@@ -8,9 +8,9 @@ var app = app || {};
 (function () {
 	'use strict';
 
-	app.TodoFooter = React.createClass({
-		render: function () {
-			var activeTodoWord = app.Utils.pluralize(this.props.count, 'item');
+  class TodoFooter extends React.Component {
+    render () {
+      var activeTodoWord = app.Utils.pluralize(this.props.count, 'item');
 			var clearButton = null;
 
 			if (this.props.completedCount > 0) {
@@ -57,6 +57,8 @@ var app = app || {};
 					clearButton
 				])
 			);
-		}
-	});
+    }
+  }
+
+	app.TodoFooter = TodoFooter;
 })();

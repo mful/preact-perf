@@ -129,9 +129,9 @@ Suites.push({
 });
 
 Suites.push({
-    name: 'React 15.0.2',
+    name: 'React 16.4.0',
     url: 'todomvc/react/index.html',
-    version: '15.0.2',
+    version: '16.4.0',
     prepare: function (runner, contentWindow, contentDocument) {
         contentWindow.Utils.store = function () {}
         return runner.waitForElement('.new-todo').then(function (element) {
@@ -145,6 +145,8 @@ Suites.push({
                 var inputEvent = document.createEvent('Event');
                 inputEvent.initEvent('input', true, true);
                 newTodo.value = 'Something to do ' + i;
+                // hack for react 16
+                newTodo._valueTracker.setValue('');
                 newTodo.dispatchEvent(inputEvent);
 
                 var keydownEvent = document.createEvent('Event');

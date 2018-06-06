@@ -16,16 +16,20 @@ var app = app || {};
 
 	var ENTER_KEY = 13;
 
-	var TodoApp = React.createClass({
-		getInitialState: function () {
-			return {
-				nowShowing: app.ALL_TODOS,
+  class TodoApp extends React.Component {
+    constructor() {
+      super(...arguments);
+      this.state = {
+        nowShowing: app.ALL_TODOS,
 				editing: null,
 				newTodo: ''
-			};
-		},
+      };
 
-		componentDidMount: function () {
+      this.handleNewTodoKeyDown = this.handleNewTodoKeyDown.bind(this);
+      this.handleChange = this.handleChange.bind(this);
+    }
+
+		componentDidMount () {
 			var setState = this.setState;
 			var router = Router({
 				'/': setState.bind(this, {nowShowing: app.ALL_TODOS}),
@@ -33,13 +37,13 @@ var app = app || {};
 				'/completed': setState.bind(this, {nowShowing: app.COMPLETED_TODOS})
 			});
 			router.init('/');
-		},
+		}
 
-		handleChange: function (event) {
+		handleChange (event) {
 			this.setState({newTodo: event.target.value});
-		},
+		}
 
-		handleNewTodoKeyDown: function (event) {
+		handleNewTodoKeyDown (event) {
 			if (event.keyCode !== ENTER_KEY) {
 				return;
 			}
@@ -52,39 +56,39 @@ var app = app || {};
 				this.props.model.addTodo(val);
 				this.setState({newTodo: ''});
 			}
-		},
+		}
 
-		toggleAll: function (event) {
+		toggleAll (event) {
 			var checked = event.target.checked;
 			this.props.model.toggleAll(checked);
-		},
+		}
 
-		toggle: function (todoToToggle) {
+		toggle (todoToToggle) {
 			this.props.model.toggle(todoToToggle);
-		},
+		}
 
-		destroy: function (todo) {
+		destroy (todo) {
 			this.props.model.destroy(todo);
-		},
+		}
 
-		edit: function (todo) {
+		edit (todo) {
 			this.setState({editing: todo.id});
-		},
+		}
 
-		save: function (todoToSave, text) {
+		save (todoToSave, text) {
 			this.props.model.save(todoToSave, text);
 			this.setState({editing: null});
-		},
+		}
 
-		cancel: function () {
+		cancel () {
 			this.setState({editing: null});
-		},
+		}
 
-		clearCompleted: function () {
+		clearCompleted () {
 			this.props.model.clearCompleted();
-		},
+		}
 
-		render: function () {
+		render () {
 			var footer;
 			var main;
 			var todos = this.props.model.todos;
@@ -165,7 +169,7 @@ var app = app || {};
 				])
 			);
 		}
-	});
+  }
 
 	var model = new app.TodoModel('react-todos');
 
